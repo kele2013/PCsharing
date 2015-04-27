@@ -8,6 +8,7 @@
 #define MAX_PARAM  7
 #define NAME_LEN  100
 #define MAX_FUN  20
+#define BUFFER_BLOCK_SIZE 1024
 
 typedef struct ParamType
 {
@@ -26,6 +27,8 @@ typedef struct taskInfo
 	DWORD  index;
 	//pfnTaskCallback callback;
 }taskInfo,*ptaskInfo;
+
+DWORD getParamtLength(void** Param,DWORD PC);
 
 
 #endif

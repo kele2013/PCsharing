@@ -1,0 +1,52 @@
+﻿生成启动时间为 2015-4-27 18:52:52。
+     1>项目“E:\PC2PC\PC2PC\PC2PC.vcxproj”在节点 2 上(rebuild 个目标)。
+     1>InitializeBuildStatus:
+         正在对“Debug\PC2PC.unsuccessfulbuild”执行 Touch 任务。
+       ClCompile:
+         C:\Program Files\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yc"StdAfx.h" /Fp"Debug\PC2PC.pch" /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt stdafx.cpp
+         stdafx.cpp
+         C:\Program Files\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"StdAfx.h" /Fp"Debug\PC2PC.pch" /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt functionAPI.cpp PC2PC.cpp SCreenShot.cpp
+         SCreenShot.cpp
+     1>e:\pc2pc\pc2pc\screenshot.cpp(21): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files\microsoft visual studio 10.0\vc\include\stdio.h(371) : 参见“sprintf”的声明
+     1>e:\pc2pc\pc2pc\screenshot.cpp(31): warning C4018: “<”: 有符号/无符号不匹配
+     1>e:\pc2pc\pc2pc\screenshot.cpp(40): warning C4018: “>”: 有符号/无符号不匹配
+     1>e:\pc2pc\pc2pc\screenshot.cpp(43): error C2065: “ret”: 未声明的标识符
+     1>e:\pc2pc\pc2pc\screenshot.cpp(56): error C2065: “nRet”: 未声明的标识符
+     1>e:\pc2pc\pc2pc\screenshot.cpp(56): error C2065: “g_fdclientSock”: 未声明的标识符
+     1>e:\pc2pc\pc2pc\screenshot.cpp(56): error C2228: “.fd_array”的左边必须有类/结构/联合
+                 类型是“'unknown-type'”
+     1>e:\pc2pc\pc2pc\screenshot.cpp(56): error C2065: “i”: 未声明的标识符
+     1>e:\pc2pc\pc2pc\screenshot.cpp(57): error C2065: “nRet”: 未声明的标识符
+     1>e:\pc2pc\pc2pc\screenshot.cpp(75): error C3861: “GetScreenBuffer”: 找不到标识符
+     1>e:\pc2pc\pc2pc\screenshot.cpp(83): warning C4018: “<”: 有符号/无符号不匹配
+     1>e:\pc2pc\pc2pc\screenshot.cpp(85): error C2065: “i”: 未声明的标识符
+     1>e:\pc2pc\pc2pc\screenshot.cpp(98): warning C4018: “<”: 有符号/无符号不匹配
+     1>e:\pc2pc\pc2pc\screenshot.cpp(99): error C2065: “g_fdclientSock”: 未声明的标识符
+     1>e:\pc2pc\pc2pc\screenshot.cpp(99): error C2228: “.fd_array”的左边必须有类/结构/联合
+                 类型是“'unknown-type'”
+     1>e:\pc2pc\pc2pc\screenshot.cpp(99): error C2065: “i”: 未声明的标识符
+     1>e:\pc2pc\pc2pc\screenshot.cpp(99): error C2065: “i”: 未声明的标识符
+     1>e:\pc2pc\pc2pc\screenshot.cpp(102): error C2065: “image_buffer”: 未声明的标识符
+     1>e:\pc2pc\pc2pc\screenshot.cpp(103): error C2065: “image_buffer”: 未声明的标识符
+     1>e:\pc2pc\pc2pc\screenshot.cpp(103): error C2541: “delete”: 不能删除不是指针的对象
+     1>e:\pc2pc\pc2pc\screenshot.cpp(104): error C2065: “ret”: 未声明的标识符
+         PC2PC.cpp
+     1>e:\pc2pc\pc2pc\pc2pc.cpp(101): warning C4018: “<”: 有符号/无符号不匹配
+     1>e:\pc2pc\pc2pc\pc2pc.cpp(132): warning C4018: “<”: 有符号/无符号不匹配
+     1>e:\pc2pc\pc2pc\pc2pc.cpp(162): error C3861: “DoSendScreenBuffer”: 找不到标识符
+     1>e:\pc2pc\pc2pc\pc2pc.cpp(195): warning C4018: “<”: 有符号/无符号不匹配
+     1>e:\pc2pc\pc2pc\pc2pc.cpp(212): warning C4018: “<”: 有符号/无符号不匹配
+     1>e:\pc2pc\pc2pc\pc2pc.cpp(245): warning C4800: “DWORD”: 将值强制为布尔值“true”或“false”(性能警告)
+     1>e:\pc2pc\pc2pc\pc2pc.cpp(298): error C3861: “DoRecvScreenBuffer”: 找不到标识符
+         functionAPI.cpp
+     1>e:\pc2pc\pc2pc\functionapi.cpp(84): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files\microsoft visual studio 10.0\vc\include\stdio.h(234) : 参见“fopen”的声明
+     1>e:\pc2pc\pc2pc\functionapi.cpp(227): warning C4996: 'strncpy': This function or variable may be unsafe. Consider using strncpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files\microsoft visual studio 10.0\vc\include\string.h(188) : 参见“strncpy”的声明
+         正在生成代码...
+     1>已完成生成项目“E:\PC2PC\PC2PC\PC2PC.vcxproj”(rebuild 个目标)的操作 - 失败。
+
+生成失败。
+
+已用时间 00:00:07.26

@@ -19,7 +19,6 @@ extern "C" {
 DWORD g_fun[MAX_FUN] = 
 {
 	(DWORD)fun0_GetScreenSize,
-	(DWORD)fun1_GetScreenBuffer,
 	(DWORD)fun2,
 
 };
@@ -115,7 +114,7 @@ int savejpeg(char *filename, unsigned char *bits, int width, int height, int dep
 }
 
 
-DWORD CaptureScreen(BYTE *image_buffer)
+DWORD CaptureScreen(BYTE *image_buffer,DWORD *pulBufSize)
 {
 	bool flag = true;
 	do
@@ -149,7 +148,7 @@ DWORD CaptureScreen(BYTE *image_buffer)
 
 		//LPBYTE lpdata=new unsigned char[nLineByte*bitmap.bmHeight];
 		//image_buffer=lpdata;
-		//*pulBufSize=nLineByte*bitmap.bmHeight;
+		*pulBufSize=nLineByte*bitmap.bmHeight;
 
 		//if(!lpdata) goto ret;
 		//填充位图信息头结构
@@ -191,18 +190,26 @@ DWORD CaptureScreen(BYTE *image_buffer)
 		return flag;
 }
 
-DWORD fun1_GetScreenBuffer(BYTE *image_buffer)
+DWORD GetScreenBuffer(BYTE *image_buffer,DWORD pScreeSize)
 {
 	bool ret = false;
-	char filename[] ="ok.jpg";
-	if(image_buffer)
-	{
-		CaptureScreen(image_buffer);
-		savejpeg(filename, image_buffer, 1366, 768, 3);
-		ret = true;
-	}
-	else
-		ret = false;
+	char filename[] ="ok.jpg";	
+	do{
+		if(image_buffer)
+		{
+			DWORD bufferSize = 0;
+			CaptureScreen(image_buffer,&bufferSize);
+			if(pScreeSize!=bufferSize)
+			{
+				ret = false;
+				break;
+			}
+			savejpeg(filename, image_buffer, 1366, 768, 3);
+			ret = true;
+		}
+		else
+			ret = false;
+	}while(false);
 
 	return ret;
 }
@@ -213,7 +220,7 @@ DWORD fun1(BYTE *image_buffer)
 	MessageBoxA(NULL,str,str,MB_OK);
 	return 1;
 }
-
+*/
 DWORD fun2(char * str1, char* str2)
 {
 	int len=strlen(str1);
@@ -221,7 +228,7 @@ DWORD fun2(char * str1, char* str2)
 	str2[len]=0;
 	return 1;
 }
-*/
+
 
 bool getParamList(const taskInfo &task,void* p[])
 {
