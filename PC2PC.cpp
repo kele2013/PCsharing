@@ -7,6 +7,8 @@
 #include "winsock.h"
 #include "PC2PC.h"
 #include "functionAPI.h"
+#include "SCreenShot.h"
+
 
 #pragma comment(lib,"ws2_32.lib")
 
@@ -112,6 +114,7 @@ DWORD _stdcall ServerThread(PVOID pM)
 	bool flag = initSever();
 	if(!flag)
 		return -1;
+	printf("initServer--\n");
 
 	fd_set fdRead;
 	FD_ZERO(&fdRead);
@@ -121,7 +124,7 @@ DWORD _stdcall ServerThread(PVOID pM)
 	{
 		return -1;
 	}
-	memset(recvBuffer,0,sizeof(char)*1024);
+	//memset(recvBuffer,0,sizeof(char)*1024);
 	while (true)
 	{
 		fdRead = g_fdclientSock;
@@ -132,23 +135,45 @@ DWORD _stdcall ServerThread(PVOID pM)
 			{
 				if(FD_ISSET(g_fdclientSock.fd_array[i],&fdRead))
 				{
-					memset(recvBuffer,0,sizeof(char)*1024);
-					nRet = recv(g_fdclientSock.fd_array[i],(char*)&recvTask,sizeof(taskInfo),0);
-					if (nRet == SOCKET_ERROR)
+					DWORD type;
+					recv(g_fdclientSock.fd_array[i],(char*)&type,sizeof(DWORD),0);
+					switch(type)
 					{
-						closesocket(g_fdclientSock.fd_array[i]);
-						FD_CLR(g_fdclientSock.fd_array[i],&g_fdclientSock);
+					case 1:
+					{
+						nRet = recv(g_fdclientSock.fd_array[i],(char*)&recvTask,sizeof(taskInfo),0);
+						if (nRet == SOCKET_ERROR)
+						{
+							closesocket(g_fdclientSock.fd_array[i]);
+							FD_CLR(g_fdclientSock.fd_array[i],&g_fdclientSock);
+						}
+						else
+						{
+							printf("recv from client %s\n",recvBuffer);//
+							Dofunction(recvTask);
+							if(recvTask.ret)
+								send(g_fdclientSock.fd_array[i],(char*)&recvTask,sizeof(taskInfo),0);
+							printf("server---type1--after handle:\n");
+							printRetBuffer(recvTask);
+
+						}
+						break;
 					}
-					else
+					case 2:
 					{
-						printf("recv from client %s\n",recvBuffer);//
-						Dofunction(recvTask);
-						if(recvTask.ret)
-							send(g_fdclientSock.fd_array[i],(char*)&recvTask,sizeof(taskInfo),0);
-						printf("server---after handle:\n");
-						printRetBuffer(recvTask);
+						DoSendScreenBuffer(g_fdclientSock.fd_array[i]);
+						break;
+					}
+					default:
+					{
+						printf("unkonw type proto\n");
+						break;
 
 					}
+				}
+
+
+						
 				}
 
 			}
@@ -252,6 +277,7 @@ DWORD _stdcall ClientThread(PVOID pM)
 	srv_addr.sin_family = AF_INET;
 	srv_addr.sin_addr.S_un.S_addr = inet_addr(REMOTE_IP);
 	srv_addr.sin_port = htons(PORT);
+	printf("wait for connecting\n");
 	if(connect(s,(struct sockaddr*)&srv_addr,sizeof(struct sockaddr_in))< 0)
 	{
 		DWORD err =WSAGetLastError();
@@ -260,24 +286,25 @@ DWORD _stdcall ClientThread(PVOID pM)
 		getchar();
 	}
 	printf("connect success from %s,port =%d",inet_ntoa(srv_addr.sin_addr),ntohs(srv_addr.sin_port));
+	DWORD type = 1;
+	send(s,(char*)&type,sizeof(DWORD),0);
 
 	DWORD  flag = 0x10000000;
 	DWORD ScreenSize;
 	CallRemoteFun(s,flag,0,GetParaType((char*)&ScreenSize,4|0xFF00));
 	flag = 0x10000001;
 
-
 	if(ScreenSize)
 	{
 		BYTE *pImageBuffer = new BYTE[ScreenSize];
-		DWORD  flag = 0x10000001;
-		CallRemoteFun(s,flag,1,GetParaType((char*)pImageBuffer,ScreenSize));
+		DoRecvScreenBuffer(s,ScreenSize,pImageBuffer);
+		
 	}
-
+	/*
 	CallRemoteFun(s,flag,1,GetParaType("hkc", 4));
 	char copyName[4];
 	flag = 0x10000002;
-	CallRemoteFun(s,flag,2,GetParaType("zqh", 4),GetParaType(copyName,4|0xFF00));
+	CallRemoteFun(s,flag,2,GetParaType("zqh", 4),GetParaType(copyName,4|0xFF00));*/
 	return 0;
 }
 

@@ -16,8 +16,16 @@ typedef struct ParamType
 	DWORD bufferSize;
 }ParamType,*PParamType;
 
+typedef struct taskHeader
+{
+	DWORD type;
+	DWORD lenOfTask;
+	DWORD checkSum;
+}taskHeader;
+
 typedef struct taskInfo
 {
+	taskHeader th;
 	BOOL isUsed;
 	BOOL isSync;
 	char  param[MAX_PATH];
@@ -27,6 +35,19 @@ typedef struct taskInfo
 	DWORD  index;
 	//pfnTaskCallback callback;
 }taskInfo,*ptaskInfo;
+
+typedef struct ScreenInfo
+{
+	taskHeader th;
+	DWORD  bufferSize;
+}ScreenInfo,*pScreenInfo;
+
+typedef struct ScreenACK
+{
+	taskHeader th;
+	char*  pImageBuffer;
+	DWORD  bufferSize;
+}ScreenACK,*pScreenACK;
 
 DWORD getParamtLength(void** Param,DWORD PC);
 
